@@ -14,8 +14,17 @@ module V1
         return
       end
 
-      FileParserWorker.perform_async(file.read)
-      render json: { message: 'File uploaded and processed successfully' }, status: :created
+      upload_dir = Rails.root.join('tmp', 'uploads')
+      FileUtils.mkdir_p(upload_dir) unless Dir.exist?(upload_dir)
+
+      file_path = upload_dir.join("#{SecureRandom.uuid}.txt")
+      FileUtils.copy(file.tempfile.path, file_path)
+
+      FileParserWorker.perform_async(file_path.to_s)
+
+      render json: { message: 'File uploaded and processing started' }, status: :created
+      rescue StandardError => e
+      render json: { error: "Upload failed: #{e.message}" }, status: :internal_server_error
     end
 
     private
