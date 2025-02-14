@@ -1,0 +1,6 @@
+FactoryBot.define do
+  factory :store do
+    name { Faker::Commerce.product_name }
+    owner { Faker::Name.name }
+  end
+end

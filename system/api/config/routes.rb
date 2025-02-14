@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   namespace :v1 do
-    resources :transactions, only: %i[index create]
+    resources :transactions, only: %i[index] do
+      collection do
+        post :upload
+      end
+    end
   end
 end
