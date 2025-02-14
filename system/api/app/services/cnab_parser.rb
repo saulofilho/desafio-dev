@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CnabParser
   TRANSACTION_TYPES = {
     '1' => { description: 'Débito', nature: 'Entrada', sign: '+' },
@@ -24,16 +26,16 @@ class CnabParser
       owner = line[48..61].strip
       store_name = line[62..80].strip
 
-      store = Store.find_or_create_by(name: store_name, owner: owner)
+      store = Store.find_or_create_by(name: store_name, owner:)
 
       transactions << Transaction.new(
-        transaction_type: transaction_type,
-        date: date,
+        transaction_type:,
+        date:,
         value: TRANSACTION_TYPES[transaction_type.to_s][:sign] == '-' ? -value : value,
-        cpf: cpf,
-        card: card,
-        time: time,
-        store: store
+        cpf:,
+        card:,
+        time:,
+        store:
       )
     end
 

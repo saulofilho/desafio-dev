@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
 RSpec.describe 'V1::Transactions', swagger_doc: 'v1/swagger.yaml' do

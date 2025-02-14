@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CnabParser, type: :service do
@@ -8,10 +10,10 @@ RSpec.describe CnabParser, type: :service do
   end
 
   after do
-    File.delete(file_path) if File.exist?(file_path)
+    FileUtils.rm_f(file_path)
   end
 
-  it "correctly processes a CNAB file" do
-    expect { CnabParser.parse(file_path.open) }.to change { Transaction.count }.by(1)
+  it 'correctly processes a CNAB file' do
+    expect { described_class.parse(file_path.open) }.to change(Transaction, :count).by(1)
   end
 end
