@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_14_122403) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_14_133354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,4 +20,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_14_122403) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "transaction_type"
+    t.date "date"
+    t.float "value"
+    t.string "cpf"
+    t.string "card"
+    t.time "time"
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_transactions_on_store_id"
+  end
+
+  add_foreign_key "transactions", "stores"
 end
