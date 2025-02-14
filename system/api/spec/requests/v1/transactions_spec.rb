@@ -25,7 +25,7 @@ RSpec.describe 'V1::Transactions', swagger_doc: 'v1/swagger.yaml' do
   end
 
   path '/v1/transactions/upload' do
-    post 'Uploads a File' do
+    post 'Upload a File' do
       tags 'Transactions'
       consumes 'multipart/form-data'
       produces 'application/json'
@@ -33,11 +33,11 @@ RSpec.describe 'V1::Transactions', swagger_doc: 'v1/swagger.yaml' do
 
       let(:file) { fixture_file_upload('CNAB.txt', 'text/csv', :binary) }
 
-      context 'when upload is triggered' do
+      context 'when upload was a success' do
         response '201', 'stores and transactions are created with success' do
           run_test! do
             expect(response).to have_http_status(:created)
-            expect(response.parsed_body).to include('message' => 'File uploaded and processed successfully')
+            expect(response.parsed_body).to include('message' => 'File uploaded and processing started')
           end
         end
       end
