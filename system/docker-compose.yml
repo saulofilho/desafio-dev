@@ -1,0 +1,77 @@
+services:
+  # app:
+  #   build:
+  #     context: ./app
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./app:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "3001:3000"
+  #   environment:
+  #     REDIS_URL: redis://redis:6379/0
+  #   depends_on:
+  #     - redis
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      REDIS_URL: ${REDIS_URL}
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  migrate:
+    build:
+      context: ./api
+      args:
+        ENVIRONMENT: development
+    environment:
+      RAILS_ENV: development
+    command: bundle exec bin/rails db:prepare
+    depends_on:
+      - db
+      - api
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  sidekiq:
+    build:
+      context: ./api
+    command: bundle exec sidekiq
+    depends_on:
+      - redis
+      - api
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./api:/app
+
+volumes:
+  postgres_data:
+  redis_data:
