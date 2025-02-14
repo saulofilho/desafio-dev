@@ -1,0 +1,35 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  description: Documentação da API V1
+  version: v1
+servers:
+- url: http://localhost:3000
+  description: Servidor Local
+- url: https://api.seudominio.com
+  description: Servidor de Produção
+paths:
+  "/v1/transactions":
+    get:
+      summary: Get a list of Transactions
+      tags:
+      - Transactions
+      responses:
+        '200':
+          description: transactions fetched with success
+  "/v1/transactions/upload":
+    post:
+      summary: Upload a File
+      tags:
+      - Transactions
+      parameters: []
+      responses:
+        '201':
+          description: stores and transactions are created with success
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+              format: binary
