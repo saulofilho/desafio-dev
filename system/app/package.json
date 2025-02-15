@@ -7,11 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.0.6",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "axios": "^1.7.9",
+    "msw": "^2.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -27,8 +31,9 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
-    "postcss": "^8.5.2",
+    "jsdom": "^26.0.0",
     "tailwindcss": "^4.0.6",
-    "vite": "^6.1.0"
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
   }
 }
