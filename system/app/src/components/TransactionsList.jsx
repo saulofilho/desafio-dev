@@ -3,6 +3,7 @@ import { fetchTransactions } from '../api/transactions';
 
 function TransactionsList() {
   const [stores, setStores] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadTransactions = async () => {
@@ -12,11 +13,11 @@ function TransactionsList() {
         if (Array.isArray(transactionsData.stores)) {
           setStores(transactionsData.stores);
         } else {
-          console.error('Dados de lojas não encontrados', transactionsData);
+          setError([]);
           setStores([]);
         }
       } catch (error) {
-        console.error('Erro ao carregar transações', error);
+        setError('Erro ao carregar transações');
         setStores([]);
       }
     };
