@@ -1,6 +1,52 @@
-# File Parse System
+# File Parse System Backend
 
-File Parse System.
+The backend of the File Parser System is built with Ruby on Rails, leveraging several powerful gems to enhance performance, serialization, database management, API documentation, and background processing.
+
+## To access the container
+
+Under the app folder execute the following commands:
+
+```bash
+docker-compose exec api bash
+```
+
+## Test
+
+```bash
+rspec
+```
+
+## Lint
+
+```bash
+rubocop -A
+```
+
+## Generating documentation
+
+```bash
+rails rswag
+```
+
+## Console
+
+```bash
+rails c
+```
+
+## Adding Session Key for Sidekiq Web
+
+If your application is running in API mode, you need to add session middleware for Sidekiq Web to function properly. The error message you received earlier likely indicates a session-related issue.
+
+### Generating the Session Key
+To generate a secure session key, run the following command in your terminal:
+
+```ruby
+require 'securerandom'
+File.open(".session.key", "w") { |f| f.write(SecureRandom.hex(32)) }
+```
+
+This will create a `.session.key` file, which will be used to configure the session middlew
 
 ## Gemfile
 
@@ -10,7 +56,6 @@ It includes application gems like:
 
 - [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
 - [Rack CORS](https://github.com/cyu/rack-cors) for control Cross-Site Resource Sharing
-- [Rails::Healthcheck](https://github.com/linqueta/rails-healthcheck) for check the application health
 - [Rswag](https://github.com/rswag/rswag) for generate API specifications from RSpec examples
 
 And develompent gems like:
@@ -31,9 +76,3 @@ And testing gems like:
 - [webmock](https://github.com/bblimke/webmock) for stubbing and setting expectations on HTTP requests
 - [pry-byebug](https://github.com/deivid-rodriguez/pry-byebug) for step-by-step debugging
 - [awesome_print](https://github.com/awesome-print/awesome_print) for prints objects in full color
-
-### Starting the Rails server
-
-#### On vscode
-
-Start debugging using the **_Listen for rdebug_** settings or press F5.
