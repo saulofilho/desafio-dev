@@ -73,6 +73,5 @@ And testing gems like:
 - [Rspec](https://github.com/rspec/rspec) for unit testing
 - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers) for common RSpec matchers
 - [simplecov](https://github.com/simplecov-ruby/simplecov) for code coverage
-- [webmock](https://github.com/bblimke/webmock) for stubbing and setting expectations on HTTP requests
 - [pry-byebug](https://github.com/deivid-rodriguez/pry-byebug) for step-by-step debugging
 - [awesome_print](https://github.com/awesome-print/awesome_print) for prints objects in full color
