@@ -17,7 +17,7 @@ RSpec.describe 'V1::Transactions', swagger_doc: 'v1/swagger.yaml' do
         end
 
         response '200', 'transactions fetched with success' do
-          schema schema_with_object(:user, '#/components/schemas/transaction')
+          schema schema_with_object(:stores, '#/components/schemas/stores')
 
           run_test! do
             expect(response).to have_http_status(:ok)

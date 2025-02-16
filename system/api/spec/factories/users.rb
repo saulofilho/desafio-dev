@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :user do
-    email { 'MyString' }
-    verification_token { 'MyString' }
-    verification_token_sent_at { '2025-02-16 19:53:39' }
+    email { Faker::Internet.email }
+    verification_token { Faker::Alphanumeric.alpha(number: 20) }
+    verification_token_sent_at { Faker::Date.backward(days: 2) }
   end
 end

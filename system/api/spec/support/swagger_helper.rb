@@ -22,6 +22,18 @@ module Swagger
         required: [object_name]
       }
     end
+
+    def schema_with_objects(object_name, ref)
+      {
+        type: :object,
+        properties: {
+          object_name => {
+            type: :array,
+            items: { '$ref' => ref }
+          }
+        }
+      }
+    end
   end
 end
 

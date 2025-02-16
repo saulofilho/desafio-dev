@@ -17,10 +17,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  user:
-                    "$ref": "#/components/schemas/transaction"
+                  stores:
+                    "$ref": "#/components/schemas/stores"
                 required:
-                - user
+                - stores
   "/v1/transactions/upload":
     post:
       summary: Upload a File
@@ -88,40 +88,91 @@ components:
           properties:
             email:
               type: string
-    transaction:
-      type: object
-      properties:
-        user:
-          type: object
-          properties:
-            transaction_type:
-              type: string
-            date:
-              type: string
-              format: date-time
-            value:
-              type: string
-            cpf:
-              type: string
-            time:
-              type: string
-              format: date-time
-            store_id:
-              type: string
             created_at:
               type: string
               format: date-time
             updated_at:
               type: string
               format: date-time
-          attach_file_schema:
-            type: object
-            properties:
-              file:
-                type: string
-                format: binary
-            required:
-            - file
+    attach_file_schema:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+      required:
+      - file
+    transaction:
+      type: object
+      properties:
+        transaction_type:
+          type: string
+        date:
+          type: string
+          format: date-time
+        value:
+          type: string
+        cpf:
+          type: string
+        time:
+          type: string
+          format: date-time
+        store_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    stores:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          owner:
+            type: string
+          total_balance:
+            type: number
+          created_at:
+            type: string
+            format: date-time
+          updated_at:
+            type: string
+            format: date-time
+          transactions:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                transaction_type:
+                  type: integer
+                date:
+                  type: string
+                  format: date
+                value:
+                  type: number
+                cpf:
+                  type: string
+                card:
+                  type: string
+                time:
+                  type: string
+                  format: date-time
+                store_id:
+                  type: integer
+                created_at:
+                  type: string
+                  format: date-time
+                updated_at:
+                  type: string
+                  format: date-time
   securitySchemes:
     bearer_auth:
       type: http
