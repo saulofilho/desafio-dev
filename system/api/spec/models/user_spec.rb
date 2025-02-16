@@ -14,21 +14,21 @@ RSpec.describe User, type: :model do
     context 'when verification_token_sent_at is nil' do
       it 'returns false' do
         user.verification_token_sent_at = nil
-        expect(user.verification_token_valid?).to be_falsey
+        expect(user).not_to be_verification_token_valid
       end
     end
 
     context 'when verification_token_sent_at is more than 24 hours ago' do
       it 'returns false' do
         user.verification_token_sent_at = 25.hours.ago
-        expect(user.verification_token_valid?).to be_falsey
+        expect(user).not_to be_verification_token_valid
       end
     end
 
     context 'when verification_token_sent_at is within the last 24 hours' do
       it 'returns true' do
         user.verification_token_sent_at = 23.hours.ago
-        expect(user.verification_token_valid?).to be_truthy
+        expect(user).to be_verification_token_valid
       end
     end
   end
