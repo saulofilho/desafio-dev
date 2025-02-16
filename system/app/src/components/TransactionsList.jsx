@@ -13,7 +13,7 @@ function TransactionsList() {
         if (Array.isArray(transactionsData.stores)) {
           setStores(transactionsData.stores);
         } else {
-          setError([]);
+          setError('Nenhuma transação encontrada.');
           setStores([]);
         }
       } catch (error) {
@@ -37,6 +37,7 @@ function TransactionsList() {
   return (
     <div className="container mx-auto mt-8">
       <h2 className="text-2xl font-bold mb-6">Transações por Loja</h2>
+      {error && <p>{error}</p>}
       {stores.length === 0 ? (
         <p>Nenhuma transação encontrada.</p>
       ) : (
