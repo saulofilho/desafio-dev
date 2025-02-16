@@ -41,6 +41,7 @@ describe('TransactionsList', () => {
     fetchTransactions.mockResolvedValue({ stores: [] });
 
     render(<TransactionsList />);
+    
     await waitFor(() => expect(fetchTransactions).toHaveBeenCalled());
     await waitFor(() => expect(screen.getByText(/Nenhuma transação encontrada/i)).toBeInTheDocument());
   });
@@ -49,6 +50,7 @@ describe('TransactionsList', () => {
     fetchTransactions.mockRejectedValue(new Error('API Error'));
 
     render(<TransactionsList />);
+
     await waitFor(() => expect(fetchTransactions).toHaveBeenCalled());
     await waitFor(() => expect(screen.getByText(/Nenhuma transação encontrada/i)).toBeInTheDocument());
   });
