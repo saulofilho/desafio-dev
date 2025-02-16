@@ -17,6 +17,8 @@ RSpec.describe 'V1::Transactions', swagger_doc: 'v1/swagger.yaml' do
         end
 
         response '200', 'transactions fetched with success' do
+          schema schema_with_object(:user, '#/components/schemas/transaction')
+
           run_test! do
             expect(response).to have_http_status(:ok)
             expect(json_response.stores.count).to eq 3
@@ -31,7 +33,7 @@ RSpec.describe 'V1::Transactions', swagger_doc: 'v1/swagger.yaml' do
       tags 'Transactions'
       consumes 'multipart/form-data'
       produces 'application/json'
-      parameter name: :file, in: :formData, schema: { type: :string, format: :binary }
+      parameter name: :file, in: :formData, schema: { '$ref' => '#/components/schemas/attach_file_schema' }
 
       let(:file) { fixture_file_upload('CNAB.txt', 'text/csv', :binary) }
 

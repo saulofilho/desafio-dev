@@ -11,15 +11,12 @@ module UserCommand
     def call
       user = User.find_or_initialize_by(email: @params[:email])
 
-      if user&.verification_token_valid?
-        session_token = JsonWebToken.encode(user: { id: user.id })
-        { session_token:, user: }
-      else
+      unless user&.verification_token_valid?
         user.generate_validation_token
         user.save
-        session_token = JsonWebToken.encode(user: { id: user.id })
-        { session_token:, user: }
       end
+      session_token = JsonWebToken.encode(user: { id: user.id })
+      { session_token:, user: }
     end
   end
 end

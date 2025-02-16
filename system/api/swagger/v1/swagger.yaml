@@ -12,6 +12,15 @@ paths:
       responses:
         '200':
           description: transactions fetched with success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    "$ref": "#/components/schemas/transaction"
+                required:
+                - user
   "/v1/transactions/upload":
     post:
       summary: Upload a File
@@ -25,8 +34,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: string
-              format: binary
+              "$ref": "#/components/schemas/attach_file_schema"
   "/v1/users":
     post:
       summary: create a user
@@ -80,6 +88,40 @@ components:
           properties:
             email:
               type: string
+    transaction:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            transaction_type:
+              type: string
+            date:
+              type: string
+              format: date-time
+            value:
+              type: string
+            cpf:
+              type: string
+            time:
+              type: string
+              format: date-time
+            store_id:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+          attach_file_schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+            required:
+            - file
   securitySchemes:
     bearer_auth:
       type: http
