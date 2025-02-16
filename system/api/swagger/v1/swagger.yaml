@@ -1,14 +1,8 @@
 ---
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  title: API V1
-  description: Documentação da API V1
+  title: File Parser
   version: v1
-servers:
-- url: http://localhost:3000
-  description: Servidor Local
-- url: https://api.seudominio.com
-  description: Servidor de Produção
 paths:
   "/v1/transactions":
     get:
@@ -33,3 +27,63 @@ paths:
             schema:
               type: string
               format: binary
+  "/v1/users":
+    post:
+      summary: create a user
+      tags:
+      - Users
+      operationId: user_create
+      parameters: []
+      responses:
+        '201':
+          description: user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    "$ref": "#/components/schemas/user"
+                required:
+                - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/user"
+servers:
+- url: "{defaultHost}"
+  variables:
+    defaultHost:
+      default: ''
+components:
+  schemas:
+    error_response:
+      type: object
+      properties:
+        error:
+          "$ref": "#/components/schemas/exception"
+      required:
+      - error
+    exception:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+    user:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+    basic_auth:
+      type: http
+      scheme: basic
