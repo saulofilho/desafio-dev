@@ -14,17 +14,11 @@ module V1
         return
       end
 
-      upload_dir = Rails.root.join('tmp/uploads')
-      FileUtils.mkdir_p(upload_dir)
+      command = TransactionCommand::Upload.call(file)
 
-      file_path = upload_dir.join("#{SecureRandom.uuid}.txt")
-      FileUtils.copy(file.tempfile.path, file_path)
-
-      FileParserWorker.perform_async(file_path.to_s)
-
-      render json: { message: 'File uploaded and processing started' }, status: :created
+      render json: { message: 'File uploaded and processing started' }, status: :created if command.success?
     rescue StandardError => e
-      render json: { error: "Upload failed: #{e.message}" }, status: :internal_server_error
+      render json: { error: "Upload failed: #{e.message}." }, status: :internal_server_error
     end
 
     private
