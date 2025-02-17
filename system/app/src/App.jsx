@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import UploadForm from './components/UploadForm';
 import TransactionsList from './components/TransactionsList';
 import Login from './components/Login';
@@ -8,11 +9,21 @@ function App() {
   const [refresh, setRefresh] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const sessionToken = !!Cookies.get('session_token');
+    if (sessionToken) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
+    Cookies.remove('session_token');
     setIsAuthenticated(false);
   };
 
