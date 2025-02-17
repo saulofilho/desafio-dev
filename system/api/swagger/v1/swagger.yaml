@@ -4,6 +4,15 @@ info:
   title: File Parser
   version: v1
 paths:
+  "/auth/github/callback":
+    get:
+      summary: receive github auth callback
+      tags:
+      - Auth
+      operationId: github_auth_callback
+      responses:
+        '301':
+          description: valid request
   "/v1/transactions":
     get:
       summary: Get a list of Transactions
