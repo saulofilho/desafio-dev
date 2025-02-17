@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq'
 
+  get '/auth/github/callback', to: 'github_auth#callback'
+
   namespace :v1 do
     resources :users, only: %i[create]
 

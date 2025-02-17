@@ -135,6 +135,8 @@ database:
 
 secret_key: <%= ENV.fetch('SECRET_KEY') { '' } %>
 
+system_web_url: <%= ENV.fetch('SYSTEM_WEB_URL') { 'http://localhost:5173' } %>
+
 # I18n Settings
 i18n:
   available_locales:
