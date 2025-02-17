@@ -10,7 +10,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const sessionToken = !!Cookies.get('session_token');
+    const sessionToken = Cookies.get('is_authenticated');
     if (sessionToken) {
       setIsAuthenticated(true);
     } else {
@@ -23,7 +23,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    Cookies.remove('session_token');
+    Cookies.remove('is_authenticated');
     setIsAuthenticated(false);
   };
 
