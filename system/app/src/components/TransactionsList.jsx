@@ -9,7 +9,7 @@ function TransactionsList() {
     const loadTransactions = async () => {
       try {
         const transactionsData = await fetchTransactions();
-        
+
         if (Array.isArray(transactionsData.stores)) {
           setStores(transactionsData.stores);
         } else {
@@ -46,16 +46,28 @@ function TransactionsList() {
             key={store.id}
             className="border border-gray-300 p-4 mb-6 shadow-md rounded-lg"
           >
-            <h3 className="text-xl font-semibold">{store.name} - {store.owner}</h3>
+            <h3 className="text-xl font-semibold">
+              {store.name} - {store.owner}
+            </h3>
             <p className="mt-2 text-lg">
               <strong>Saldo Total:</strong> {formatBalance(store.total_balance)}
             </p>
             <ul className="mt-4 space-y-2">
-              {store.transactions && Array.isArray(store.transactions) && store.transactions.map((tx) => (
-                <li key={tx.id} className="text-sm text-gray-700">
-                  <p>{formatDate(tx.date)} - {tx.transaction_type === 1 ? 'Crédito' : tx.transaction_type === 2 ? 'Débito' : 'Transferência'} - R$ {tx.value.toFixed(2)}</p>
-                </li>
-              ))}
+              {store.transactions &&
+                Array.isArray(store.transactions) &&
+                store.transactions.map((tx) => (
+                  <li key={tx.id} className="text-sm text-gray-700">
+                    <p>
+                      {formatDate(tx.date)} -{' '}
+                      {tx.transaction_type === 1
+                        ? 'Crédito'
+                        : tx.transaction_type === 2
+                          ? 'Débito'
+                          : 'Transferência'}{' '}
+                      - R$ {tx.value.toFixed(2)}
+                    </p>
+                  </li>
+                ))}
             </ul>
           </div>
         ))

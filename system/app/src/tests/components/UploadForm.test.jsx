@@ -4,7 +4,7 @@ import UploadForm from '../../components/UploadForm';
 import { uploadTransactions } from '../../api/transactions';
 
 vi.mock('../../api/transactions', () => ({
-  uploadTransactions: vi.fn()
+  uploadTransactions: vi.fn(),
 }));
 
 describe('UploadForm', () => {
@@ -39,7 +39,9 @@ describe('UploadForm', () => {
 
     await waitFor(() => {
       expect(uploadTransactions).toHaveBeenCalledWith(file);
-      expect(window.alert).toHaveBeenCalledWith('Upload realizado com sucesso!');
+      expect(window.alert).toHaveBeenCalledWith(
+        'Upload realizado com sucesso!'
+      );
       expect(onUploadSuccessMock).toHaveBeenCalled();
     });
 

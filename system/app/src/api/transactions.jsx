@@ -7,7 +7,7 @@ export const fetchTransactions = async () => {
     const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    throw new Error('Erro ao buscar transações'); 
+    throw new Error('Erro ao buscar transações');
   }
 };
 
@@ -18,6 +18,6 @@ export const uploadTransactions = async (file) => {
   try {
     await axios.post(`${API_URL}/upload`, formData);
   } catch (error) {
-    throw new Error('Erro ao enviar arquivo'); 
+    throw new Error('Erro ao enviar arquivo');
   }
 };

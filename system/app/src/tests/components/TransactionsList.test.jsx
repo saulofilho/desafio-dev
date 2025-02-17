@@ -32,18 +32,28 @@ describe('TransactionsList', () => {
 
     expect(screen.getByText(/Transações por Loja/i)).toBeInTheDocument();
     await waitFor(() => expect(fetchTransactions).toHaveBeenCalled());
-    await waitFor(() => expect(screen.getByText('Loja Teste - Dono Teste')).toBeInTheDocument());
-    await waitFor(() => expect(screen.getByText('R$ 100.50')).toBeInTheDocument());
-    await waitFor(() => expect(screen.getByText(/Crédito - R\$ 50.75/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText('Loja Teste - Dono Teste')).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText('R$ 100.50')).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Crédito - R\$ 50.75/i)).toBeInTheDocument()
+    );
   });
 
   it('renders empty state when no transactions exist', async () => {
     fetchTransactions.mockResolvedValue({ stores: [] });
 
     render(<TransactionsList />);
-    
+
     await waitFor(() => expect(fetchTransactions).toHaveBeenCalled());
-    await waitFor(() => expect(screen.getByText(/Nenhuma transação encontrada/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Nenhuma transação encontrada/i)
+      ).toBeInTheDocument()
+    );
   });
 
   it('handles API failure gracefully', async () => {
@@ -52,6 +62,10 @@ describe('TransactionsList', () => {
     render(<TransactionsList />);
 
     await waitFor(() => expect(fetchTransactions).toHaveBeenCalled());
-    await waitFor(() => expect(screen.getByText(/Nenhuma transação encontrada/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Nenhuma transação encontrada/i)
+      ).toBeInTheDocument()
+    );
   });
 });

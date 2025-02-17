@@ -27,7 +27,10 @@ function UploadForm({ onUploadSuccess }) {
   return (
     <div className="max-w-lg mx-auto mt-6">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="file-upload"
+          className="block text-sm font-medium text-gray-700"
+        >
           Enviar arquivo
         </label>
         <input

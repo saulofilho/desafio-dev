@@ -10,15 +10,17 @@ describe('API - Transactions', () => {
       const mockResponse = { data: { stores: [] } };
       axios.get.mockResolvedValueOnce(mockResponse);
       const result = await fetchTransactions();
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/v1/transactions');
+      expect(axios.get).toHaveBeenCalledWith(
+        'http://localhost:3000/v1/transactions'
+      );
       expect(result).toEqual(mockResponse.data);
     });
 
     it('should throw an error when the request fails', async () => {
-        const errorMessage = 'Erro ao buscar transações';
-        axios.get.mockRejectedValueOnce(new Error(errorMessage));
-      
-        await expect(fetchTransactions()).rejects.toThrowError(errorMessage);
+      const errorMessage = 'Erro ao buscar transações';
+      axios.get.mockRejectedValueOnce(new Error(errorMessage));
+
+      await expect(fetchTransactions()).rejects.toThrowError(errorMessage);
     });
   });
 
@@ -34,11 +36,10 @@ describe('API - Transactions', () => {
     });
 
     it('should throw an error when the POST request fails', async () => {
-        const errorMessage = 'Erro ao enviar arquivo';
-        axios.post.mockRejectedValueOnce(new Error(errorMessage));
-        const file = new Blob(['file content'], { type: 'text/plain' });
-        await expect(uploadTransactions(file)).rejects.toThrowError(errorMessage);
+      const errorMessage = 'Erro ao enviar arquivo';
+      axios.post.mockRejectedValueOnce(new Error(errorMessage));
+      const file = new Blob(['file content'], { type: 'text/plain' });
+      await expect(uploadTransactions(file)).rejects.toThrowError(errorMessage);
     });
-    
   });
 });
