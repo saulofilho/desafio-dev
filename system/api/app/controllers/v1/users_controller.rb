@@ -2,6 +2,13 @@
 
 module V1
   class UsersController < ApplicationController
+    # TODO
+    #
+    # Create User validation in SessionController
+    # Validate User token
+    # Authenticate request
+    #
+
     def create
       command = UserCommand::Create.call(user_params)
       response.set_cookie(:session_token, value: command.result[:session_token], path: '/', httponly: true,
